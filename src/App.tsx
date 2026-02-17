@@ -1,3 +1,4 @@
+
 import Timer from "./components/Timer"
 
 
@@ -5,7 +6,7 @@ function App() {
  
 
   return <>
-      <Timer/>
+      <Timer city="Tel-Aviv" timeZone="Asia/Jerusalem" dateTime={new Date()}/>
   </>
 }
 

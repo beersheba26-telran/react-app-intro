@@ -1,29 +1,43 @@
 import React from 'react'
+type Props = {
+    dateTime: Date;
+    city: string;
+    timeZone: string
+}
+const Timer: React.FC<Props> = ({dateTime, city, timeZone}) => {
 
-function Timer() {
-    const [dateTime, setDateTime] = React.useState<Date>(new Date())
-    const countRenders = React.useRef<number>(0);
-    React.useEffect(() => {
-        function tic(){
-        setDateTime(new Date())
-        console.log("tic")
-        countRenders.current++
-    }
-       const intervalId: number = setInterval(tic, 1000)
-       return () => {
-        //cleanup function
-        clearInterval(intervalId)
-        console.log("cleanup function call")
-       }
-    }, [])
+
+const parts = new Intl.DateTimeFormat('en-GB', {
+  timeZone,
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+  hour12: false
+}).formatToParts(dateTime);
+
+const dateObj = Object.fromEntries(
+  parts.map(({ type, value }) => [type, value])
+);
+
+const {day, month, year, hour, minute, second} = dateObj
+
     
     
   return (
     <div>
-      <span>{`${dateTime.getDate()}/${dateTime.getMonth()}/${dateTime.getFullYear()}T `}</span>
-      <span>{dateTime.getHours()}/</span>
-      <span>{dateTime.getMinutes()}/</span>
-      <span>{dateTime.getSeconds()}/</span>
+        <div>
+          <span>{`${day}/${month}/${year} T`}</span>
+          <span>{hour}:</span>
+          <span>{minute}:</span>
+          <span>{second}</span>
+        </div>
+        <div>
+            <span>City: {city}</span>
+            <span>Time Zone: {timeZone}</span>
+        </div>
     </div>
   )
 }
