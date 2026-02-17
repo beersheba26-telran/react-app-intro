@@ -1,12 +1,12 @@
+import Timer from "./components/Timer"
 
-import TasksList from './components/TasksList'
 
 function App() {
  
 
-  return (
-    <TasksList/>
-  )
+  return <>
+      <Timer/>
+  </>
 }
 
 export default App
