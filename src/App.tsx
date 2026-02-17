@@ -14,7 +14,7 @@ function App() {
   }, [interval]);
 
   return (
-    <div>
+    <div className="timers-grid">
       {timersConfig.map((tc) => (
         <Timer
           key={tc.id}
