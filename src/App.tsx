@@ -1,20 +1,30 @@
-import { useEffect, useState } from "react"
-import Timer from "./components/Timer"
-
+import { useEffect, useState } from "react";
+import Timer from "./components/Timer";
+import timersConfig, { interval } from "./config/timers-config";
+import "./App.css";
 
 function App() {
-  const [date, setDate] = useState<Date> (new Date())
-  useEffect(()=>{
-    function tic(){
-      setDate(new Date())
+  const [date, setDate] = useState<Date>(new Date());
+  useEffect(() => {
+    function tic() {
+      setDate(new Date());
     }
-    const intervalId = setInterval(tic, 1000)
-    return () => clearInterval(intervalId)
-  }, [])
+    const intervalId = setInterval(tic, interval);
+    return () => clearInterval(intervalId);
+  }, [interval]);
 
-  return <>
-      <Timer city="Tel-Aviv" timeZone="Asia/Jerusalem" dateTime={date}/>
-  </>
+  return (
+    <div>
+      {timersConfig.map((tc) => (
+        <Timer
+          key={tc.id}
+          city={tc.city}
+          timeZone={tc.timeZone}
+          dateTime={date}
+        />
+      ))}
+    </div>
+  );
 }
 
-export default App
+export default App;
